@@ -676,6 +676,26 @@ var Paint = (function () {
       var update = function () {
         this.update();
         requestAnimationFrame(update);
+
+        // const {
+        //   changedParameters,
+        //   defaultTextureUnit,
+        //   gl,
+        //   parameters,
+        //   uniformSetters,
+        //   ...constants
+        // } = wgl;
+
+        // const _constants = { ...constants };
+
+        // console.log({
+        //   _constants,
+        //   changedParameters,
+        //   defaultTextureUnit,
+        //   gl,
+        //   parameters,
+        //   uniformSetters,
+        // });
       }.bind(this);
       update();
     }

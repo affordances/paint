@@ -307,6 +307,7 @@ var WrappedGL = (function () {
 
   WrappedGL.create = function (canvas, options) {
     var gl = null;
+
     try {
       gl =
         canvas.getContext("webgl", options) ||
@@ -315,10 +316,13 @@ var WrappedGL = (function () {
       //no webgl support
       return null;
     }
+
     if (gl === null) {
       //no webgl support
       return null;
     }
+
+    console.log("og gl", gl);
 
     return new WrappedGL(gl);
   };
@@ -488,6 +492,7 @@ var WrappedGL = (function () {
     };
 
     var maxVertexAttributes = gl.getParameter(gl.MAX_VERTEX_ATTRIBS);
+
     for (var i = 0; i < maxVertexAttributes; ++i) {
       //we need to capture the index in a closure
       this.parameters["attributeArray" + i.toString()] = {
@@ -516,6 +521,7 @@ var WrappedGL = (function () {
     }
 
     var maxTextures = gl.getParameter(gl.MAX_TEXTURE_IMAGE_UNITS);
+
     for (var i = 0; i < maxTextures; ++i) {
       this.parameters["texture" + i.toString()] = {
         defaults: [gl.TEXTURE_2D, null],
@@ -1412,10 +1418,12 @@ var WrappedGL = (function () {
 
     //construct this.attributeLocations (maps attribute names to locations)
     this.attributeLocations = {};
+
     var numberOfAttributes = gl.getProgramParameter(
       program,
       gl.ACTIVE_ATTRIBUTES
     );
+
     for (var i = 0; i < numberOfAttributes; ++i) {
       var activeAttrib = gl.getActiveAttrib(program, i);
       var attributeName = activeAttrib.name;
@@ -1427,7 +1435,9 @@ var WrappedGL = (function () {
 
     //cache uniform locations
     var uniformLocations = (this.uniformLocations = {});
+
     var numberOfUniforms = gl.getProgramParameter(program, gl.ACTIVE_UNIFORMS);
+
     for (var i = 0; i < numberOfUniforms; i += 1) {
       var activeUniform = gl.getActiveUniform(program, i),
         uniformLocation = gl.getUniformLocation(program, activeUniform.name);
