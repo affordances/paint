@@ -44,6 +44,8 @@ var Slider = (function () {
     var redraw = function () {
       var fraction = (value - minValue) / (maxValue - minValue);
 
+      console.log("fraction", fraction);
+
       sliderLeftDiv.style.width = fraction * length + "px";
       sliderRightDiv.style.width = (1.0 - fraction) * length + "px";
       sliderRightDiv.style.left = Math.floor(fraction * length) + "px";
@@ -60,6 +62,8 @@ var Slider = (function () {
         minValue,
         maxValue
       );
+
+      console.log("value", value);
 
       changeCallback(value);
 

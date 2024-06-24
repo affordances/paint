@@ -425,6 +425,7 @@ var Paint = (function () {
         0.6,
         0.9,
         function (fluidity) {
+          console.log(fluidity);
           this.simulator.fluidity = fluidity;
         }.bind(this)
       );
@@ -758,12 +759,17 @@ var Paint = (function () {
       ), // right
     ];
 
+    // console.log("rectangles", rectangles);
+
     var screenRectangle = new Rectangle(
       0,
       0,
       this.canvas.width,
       this.canvas.height
     );
+
+    // console.log("screenRectangle", screenRectangle);
+
     for (var i = 0; i < rectangles.length; ++i) {
       var rect = rectangles[i];
       rect.intersectRectangle(screenRectangle);

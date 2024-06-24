@@ -11,8 +11,54 @@ const ConsoleLog = () => {
   return null;
 };
 
+type Quality = "low" | "medium" | "high";
+type ColorMode = "natural" | "digital";
+
 function App() {
+  const [quality, setQuality] = React.useState<Quality>("medium");
+  const [colorMode, setColorMode] = React.useState<ColorMode>("natural");
+  const [fluidity, setFluidity] = React.useState(60);
+  const [bristles, setBristles] = React.useState(40);
+  const [brushSize, setBrushSize] = React.useState(40);
   const [color, setColor] = React.useState({ h: 0, s: 0, v: 100, a: 1 });
+
+  const handleClear = () => {
+    console.log("clear");
+  };
+
+  const handleSave = () => {
+    console.log("save");
+  };
+
+  const handleUpdateQuality = (newQuality: Quality) => {
+    setQuality(newQuality);
+  };
+
+  const handleUpdateColorMode = (newColorMode: ColorMode) => {
+    setColorMode(newColorMode);
+  };
+
+  const handleUpdateFluidity = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(parseInt(e.target.value, 10) / 10);
+    setFluidity(parseInt(e.target.value, 10));
+    // must divide by 10 to use
+  };
+
+  const handleUpdateBristles = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setBristles(parseInt(e.target.value, 10));
+  };
+
+  const handleUpdateBrushSize = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setBrushSize(parseInt(e.target.value, 10));
+  };
+
+  const handleUndo = () => {
+    console.log("undo");
+  };
+
+  const handleRedo = () => {
+    console.log("redo");
+  };
 
   return (
     <div className="container">
@@ -21,45 +67,94 @@ function App() {
         <Html fullscreen>
           <div className="ui">
             <div className="buttons-row">
-              <button
-                className="clear-button"
-                onClick={() => console.log("clear")}
-              >
+              <button className="clear-button" onClick={handleClear}>
                 Clear
               </button>
-              <button
-                className="save-button"
-                onClick={() => console.log("save")}
-              >
+              <button className="save-button" onClick={handleSave}>
                 Save
               </button>
             </div>
             <div className="labeled-row">
               <div className="label">Quality</div>
               <div className="button-group">
-                <button className="quality">Low</button>
-                <button className="quality selected">Medium</button>
-                <button className="quality">High</button>
+                <button
+                  onClick={() => handleUpdateQuality("low")}
+                  className={"quality" + (quality === "low" ? " selected" : "")}
+                >
+                  Low
+                </button>
+                <button
+                  onClick={() => handleUpdateQuality("medium")}
+                  className={
+                    "quality" + (quality === "medium" ? " selected" : "")
+                  }
+                >
+                  Medium
+                </button>
+                <button
+                  onClick={() => handleUpdateQuality("high")}
+                  className={
+                    "quality" + (quality === "high" ? " selected" : "")
+                  }
+                >
+                  High
+                </button>
               </div>
             </div>
             <div className="labeled-row">
               <div className="label">Color Mode</div>
               <div className="button-group">
-                <button className="color-mode selected">Natural</button>
-                <button className="color-mode">Digital</button>
+                <button
+                  onClick={() => handleUpdateColorMode("natural")}
+                  className={
+                    "color-mode" + (colorMode === "natural" ? " selected" : "")
+                  }
+                >
+                  Natural
+                </button>
+                <button
+                  onClick={() => handleUpdateColorMode("digital")}
+                  className={
+                    "color-mode" + (colorMode === "digital" ? " selected" : "")
+                  }
+                >
+                  Digital
+                </button>
               </div>
             </div>
             <div className="labeled-row">
               <div className="label">Paint Fluidity</div>
-              <input type="range" className="slider" />
+              <input
+                type="range"
+                className="slider"
+                min="60"
+                max="90"
+                step="0.25"
+                onChange={handleUpdateFluidity}
+                value={fluidity}
+              />
             </div>
             <div className="labeled-row">
               <div className="label">Bristle Count</div>
-              <input type="range" className="slider" />
+              <input
+                type="range"
+                className="slider"
+                min="40"
+                max="220"
+                onChange={handleUpdateBristles}
+                value={bristles}
+              />
             </div>
             <div className="labeled-row">
               <div className="label">Brush Size</div>
-              <input type="range" className="slider" />
+              <input
+                type="range"
+                className="slider"
+                min="40"
+                max="220"
+                onChange={handleUpdateBrushSize}
+                value={brushSize}
+              />
             </div>
             <div className="labeled-row">
               <div className="label">Paint Color</div>
@@ -68,13 +163,10 @@ function App() {
               </div>
             </div>
             <div className="buttons-row">
-              <button
-                className="do-button active"
-                onClick={() => console.log("undo")}
-              >
+              <button className="do-button active" onClick={handleUndo}>
                 Undo
               </button>
-              <button className="do-button" onClick={() => console.log("redo")}>
+              <button className="do-button" onClick={handleRedo}>
                 Redo
               </button>
             </div>
