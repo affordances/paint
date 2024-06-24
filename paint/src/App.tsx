@@ -1,6 +1,7 @@
-// import React from "react";
+import React from "react";
 import { Canvas, useThree } from "@react-three/fiber";
 import { Html } from "@react-three/drei";
+import { HsvaColorPicker } from "react-colorful";
 
 import "./App.css";
 
@@ -11,6 +12,8 @@ const ConsoleLog = () => {
 };
 
 function App() {
+  const [color, setColor] = React.useState({ h: 0, s: 0, v: 100, a: 1 });
+
   return (
     <div className="container">
       <Canvas>
@@ -42,8 +45,8 @@ function App() {
             <div className="labeled-row">
               <div className="label">Color Mode</div>
               <div className="button-group">
-                <button className="color-mode selected">Medium</button>
-                <button className="color-mode">High</button>
+                <button className="color-mode selected">Natural</button>
+                <button className="color-mode">Digital</button>
               </div>
             </div>
             <div className="labeled-row">
@@ -60,7 +63,9 @@ function App() {
             </div>
             <div className="labeled-row">
               <div className="label">Paint Color</div>
-              <div className="color-picker"></div>
+              <div className="color-picker">
+                <HsvaColorPicker color={color} onChange={setColor} />
+              </div>
             </div>
             <div className="buttons-row">
               <button
