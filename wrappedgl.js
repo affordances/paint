@@ -322,7 +322,7 @@ var WrappedGL = (function () {
       return null;
     }
 
-    console.log("og gl", gl);
+    console.log("wrappedgl context", gl);
 
     return new WrappedGL(gl);
   };
