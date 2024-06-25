@@ -14,22 +14,38 @@ const ConsoleLog = () => {
 type Quality = "low" | "medium" | "high";
 type ColorMode = "natural" | "digital";
 
-// const transformSliderValue = (
-//   minNew: number,
-//   maxNew: number,
-//   value: number
-// ): number => {
-//   const minOld = 0;
-//   const maxOld = 240;
-//   return minNew + ((value - minOld) / (maxOld - minOld)) * (maxNew - minNew);
-// };
+const sliderMin = 0;
+const sliderMax = 240;
+const fluidityMin = 0.6;
+const fluidityMax = 0.9;
+const bristlesMin = 0;
+const bristlesMax = 1;
+const brushSizeMin = 5;
+const brushSizeMax = 75;
+
+const transformSliderValue = (
+  minNew: number,
+  maxNew: number,
+  value: number
+): number => {
+  return (
+    minNew + ((value - sliderMin) / (sliderMax - sliderMin)) * (maxNew - minNew)
+  );
+};
+
+const reverseTransformSliderValue = (
+  minNew: number,
+  maxNew: number,
+  value: number
+): number =>
+  sliderMin + ((value - minNew) / (maxNew - minNew)) * (sliderMax - sliderMin);
 
 function App() {
   const [quality, setQuality] = React.useState<Quality>("medium");
   const [colorMode, setColorMode] = React.useState<ColorMode>("natural");
-  const [fluidity, setFluidity] = React.useState(120);
-  const [bristles, setBristles] = React.useState(120);
-  const [brushSize, setBrushSize] = React.useState(120);
+  const [fluidity, setFluidity] = React.useState(fluidityMin);
+  const [bristles, setBristles] = React.useState(bristlesMin);
+  const [brushSize, setBrushSize] = React.useState(brushSizeMin);
   const [color, setColor] = React.useState({ h: 0, s: 0, v: 100, a: 1 });
 
   const handleClear = () => {
@@ -50,26 +66,17 @@ function App() {
 
   const handleUpdateFluidity = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseFloat(e.target.value);
-
-    // console.log(transformSliderValue(0.6, 0.9, value));
-
-    setFluidity(value);
+    setFluidity(transformSliderValue(fluidityMin, fluidityMax, value));
   };
 
   const handleUpdateBristles = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseFloat(e.target.value);
-
-    // console.log(transformSliderValue(0, 1, value));
-
-    setBristles(value);
+    setBristles(transformSliderValue(bristlesMin, bristlesMax, value));
   };
 
   const handleUpdateBrushSize = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseFloat(e.target.value);
-
-    // console.log(transformSliderValue(5, 75, value));
-
-    setBrushSize(value);
+    setBrushSize(transformSliderValue(brushSizeMin, brushSizeMax, value));
   };
 
   const handleUndo = () => {
@@ -147,10 +154,14 @@ function App() {
               <input
                 type="range"
                 className="slider"
-                min="0"
-                max="240"
+                min={sliderMin.toString()}
+                max={sliderMax.toString()}
                 onChange={handleUpdateFluidity}
-                value={fluidity}
+                value={reverseTransformSliderValue(
+                  fluidityMin,
+                  fluidityMax,
+                  fluidity
+                )}
               />
             </div>
             <div className="labeled-row">
@@ -158,10 +169,14 @@ function App() {
               <input
                 type="range"
                 className="slider"
-                min="0"
-                max="240"
+                min={sliderMin.toString()}
+                max={sliderMax.toString()}
                 onChange={handleUpdateBristles}
-                value={bristles}
+                value={reverseTransformSliderValue(
+                  bristlesMin,
+                  bristlesMax,
+                  bristles
+                )}
               />
             </div>
             <div className="labeled-row">
@@ -169,10 +184,14 @@ function App() {
               <input
                 type="range"
                 className="slider"
-                min="0"
-                max="240"
+                min={sliderMin.toString()}
+                max={sliderMax.toString()}
                 onChange={handleUpdateBrushSize}
-                value={brushSize}
+                value={reverseTransformSliderValue(
+                  brushSizeMin,
+                  brushSizeMax,
+                  brushSize
+                )}
               />
             </div>
             <div className="labeled-row">
