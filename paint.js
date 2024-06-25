@@ -425,7 +425,6 @@ var Paint = (function () {
         0.6,
         0.9,
         function (fluidity) {
-          console.log(fluidity);
           this.simulator.fluidity = fluidity;
         }.bind(this)
       );

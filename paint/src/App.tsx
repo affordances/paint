@@ -7,19 +7,29 @@ import "./App.css";
 
 const ConsoleLog = () => {
   const three = useThree();
-  console.log("useThree gl context", three.gl.getContext());
+  // console.log("useThree gl context", three.gl.getContext());
   return null;
 };
 
 type Quality = "low" | "medium" | "high";
 type ColorMode = "natural" | "digital";
 
+// const transformSliderValue = (
+//   minNew: number,
+//   maxNew: number,
+//   value: number
+// ): number => {
+//   const minOld = 0;
+//   const maxOld = 240;
+//   return minNew + ((value - minOld) / (maxOld - minOld)) * (maxNew - minNew);
+// };
+
 function App() {
   const [quality, setQuality] = React.useState<Quality>("medium");
   const [colorMode, setColorMode] = React.useState<ColorMode>("natural");
-  const [fluidity, setFluidity] = React.useState(60);
-  const [bristles, setBristles] = React.useState(40);
-  const [brushSize, setBrushSize] = React.useState(40);
+  const [fluidity, setFluidity] = React.useState(120);
+  const [bristles, setBristles] = React.useState(120);
+  const [brushSize, setBrushSize] = React.useState(120);
   const [color, setColor] = React.useState({ h: 0, s: 0, v: 100, a: 1 });
 
   const handleClear = () => {
@@ -39,17 +49,27 @@ function App() {
   };
 
   const handleUpdateFluidity = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(parseInt(e.target.value, 10) / 10);
-    setFluidity(parseInt(e.target.value, 10));
-    // must divide by 10 to use
+    const value = parseFloat(e.target.value);
+
+    // console.log(transformSliderValue(0.6, 0.9, value));
+
+    setFluidity(value);
   };
 
   const handleUpdateBristles = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setBristles(parseInt(e.target.value, 10));
+    const value = parseFloat(e.target.value);
+
+    // console.log(transformSliderValue(0, 1, value));
+
+    setBristles(value);
   };
 
   const handleUpdateBrushSize = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setBrushSize(parseInt(e.target.value, 10));
+    const value = parseFloat(e.target.value);
+
+    // console.log(transformSliderValue(5, 75, value));
+
+    setBrushSize(value);
   };
 
   const handleUndo = () => {
@@ -127,9 +147,8 @@ function App() {
               <input
                 type="range"
                 className="slider"
-                min="60"
-                max="90"
-                step="0.25"
+                min="0"
+                max="240"
                 onChange={handleUpdateFluidity}
                 value={fluidity}
               />
@@ -139,8 +158,8 @@ function App() {
               <input
                 type="range"
                 className="slider"
-                min="40"
-                max="220"
+                min="0"
+                max="240"
                 onChange={handleUpdateBristles}
                 value={bristles}
               />
@@ -150,8 +169,8 @@ function App() {
               <input
                 type="range"
                 className="slider"
-                min="40"
-                max="220"
+                min="0"
+                max="240"
                 onChange={handleUpdateBrushSize}
                 value={brushSize}
               />
