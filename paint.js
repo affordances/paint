@@ -351,6 +351,8 @@ var Paint = (function () {
         )
       );
 
+      // console.log("this.paintingRectangle", this.paintingRectangle);
+
       //simulation resolution = painting resolution * resolution scale
       this.resolutionScale = QUALITIES[INITIAL_QUALITY].resolutionScale;
 
@@ -360,6 +362,8 @@ var Paint = (function () {
         this.getPaintingResolutionWidth(),
         this.getPaintingResolutionHeight()
       );
+
+      // console.log("this.simulator", this.simulator);
 
       this.snapshots = [];
       for (var i = 0; i < HISTORY_SIZE; ++i) {
@@ -758,16 +762,12 @@ var Paint = (function () {
       ), // right
     ];
 
-    // console.log("rectangles", rectangles);
-
     var screenRectangle = new Rectangle(
       0,
       0,
       this.canvas.width,
       this.canvas.height
     );
-
-    // console.log("screenRectangle", screenRectangle);
 
     for (var i = 0; i < rectangles.length; ++i) {
       var rect = rectangles[i];

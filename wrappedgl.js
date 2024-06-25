@@ -322,7 +322,7 @@ var WrappedGL = (function () {
       return null;
     }
 
-    // console.log("wrappedgl context", gl);
+    console.log("context in wrappedgl create", gl);
 
     return new WrappedGL(gl);
   };
