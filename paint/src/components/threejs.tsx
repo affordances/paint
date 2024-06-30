@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
-// import { fragmentShaderSource, vertexShaderSource } from "../constants";
+import { fragmentShaderSource, vertexShaderSource } from "../constants";
 
 export const ThreeJs = () => {
   const mountRef = useRef<HTMLDivElement>(null);
@@ -12,28 +12,33 @@ export const ThreeJs = () => {
 
     const scene = new THREE.Scene();
 
-    const camera = new THREE.PerspectiveCamera(
-      75,
-      window.innerWidth / window.innerHeight,
-      0.1,
-      1000
-    );
-    camera.position.z = 2;
+    // const camera = new THREE.PerspectiveCamera(
+    //   75,
+    //   window.innerWidth / window.innerHeight,
+    //   0.1,
+    //   1000
+    // );
+    const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
+    camera.position.z = 1;
 
     const renderer = new THREE.WebGLRenderer({ alpha: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    const width = ref.clientWidth;
-    const height = ref.clientHeight;
-
-    renderer.setSize(width, height);
-    camera.aspect = width / height;
-    camera.updateProjectionMatrix();
+    renderer.setSize(ref.clientWidth, ref.clientHeight);
+    // camera.aspect = width / height;
+    // camera.updateProjectionMatrix();
     ref.appendChild(renderer.domElement);
 
-    const geometry = new THREE.BoxGeometry();
-    const material = new THREE.MeshLambertMaterial({ color: 0x00ff00 });
-    const cube = new THREE.Mesh(geometry, material);
-    scene.add(cube);
+    const geometry = new THREE.BufferGeometry();
+    const positions = new Float32Array([0, 0, 0, 0.5, 0.7, 0]);
+
+    geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+
+    const material = new THREE.ShaderMaterial({
+      vertexShader: vertexShaderSource,
+      fragmentShader: fragmentShaderSource,
+    });
+
+    const mesh = new THREE.Mesh(geometry, material);
+    scene.add(mesh);
 
     const animate = () => {
       requestAnimationFrame(animate);
