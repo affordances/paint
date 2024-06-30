@@ -56,34 +56,31 @@ export const usePaint = (): PaintState => {
   };
 
   const handleUpdateFluidity = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = parseFloat(e.target.value);
     setFluidity(
       transformSliderValue(
         settingsConfig.fluidityMin,
         settingsConfig.fluidityMax,
-        value
+        parseFloat(e.target.value)
       )
     );
   };
 
   const handleUpdateBristles = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = parseFloat(e.target.value);
     setBristles(
       transformSliderValue(
         settingsConfig.bristlesMin,
         settingsConfig.bristlesMax,
-        value
+        parseFloat(e.target.value)
       )
     );
   };
 
   const handleUpdateBrushSize = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = parseFloat(e.target.value);
     setBrushSize(
       transformSliderValue(
         settingsConfig.brushSizeMin,
         settingsConfig.brushSizeMax,
-        value
+        parseFloat(e.target.value)
       )
     );
   };
@@ -113,7 +110,6 @@ export const usePaint = (): PaintState => {
     handleUpdateFluidity,
     handleUpdateQuality,
     quality,
-
     three,
   };
 };

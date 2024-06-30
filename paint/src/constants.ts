@@ -8,3 +8,18 @@ export const settingsConfig = {
   brushSizeMin: 5,
   brushSizeMax: 75,
 };
+
+export const vertexShaderSource = `
+  attribute vec4 a_position;
+
+  void main() {
+    gl_Position = a_position;
+  }`;
+
+export const fragmentShaderSource = `
+  precision mediump float;
+
+  void main() {
+    gl_FragColor = vec4(1, 0, 0.5, 1);
+  }
+    `;

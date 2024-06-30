@@ -322,8 +322,6 @@ var WrappedGL = (function () {
       return null;
     }
 
-    console.log("context in wrappedgl create", gl);
-
     return new WrappedGL(gl);
   };
 
@@ -794,8 +792,6 @@ var WrappedGL = (function () {
 
   //flag is one of usedInDraw, usedInClear, usedInRead
   WrappedGL.prototype.resolveState = function (state, flag) {
-    var gl = this.gl;
-
     //first let's revert all states to default that were set but now aren't set
     for (var parameterName in this.changedParameters) {
       if (this.changedParameters.hasOwnProperty(parameterName)) {

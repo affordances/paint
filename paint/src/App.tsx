@@ -1,19 +1,35 @@
-// import React from "react";
-import { Canvas } from "@react-three/fiber";
+import { useEffect, useRef } from "react";
+// import { Canvas } from "@react-three/fiber";
+// import * as THREE from "three";
 
 import "./App.css";
 
-import { Settings } from "./components/Settings";
+// import { Settings } from "./components/Settings";
+import { webGlMain } from "./components/webgl";
+import { ThreeJs } from "./components/threejs";
 
 function App() {
+  const ref = useRef(null);
+
+  useEffect(() => {
+    if (ref) {
+      webGlMain(ref.current);
+    }
+  });
+
   return (
-    <div className="container">
-      <Canvas>
-        <Settings />
-        <mesh />
-      </Canvas>
+    <div className="comparison">
+      <div className="example">
+        <div className="label">webgl</div>
+        <canvas ref={ref}></canvas>
+      </div>
+      <div className="example">
+        <div className="label">threejs</div>
+        <ThreeJs />
+      </div>
     </div>
   );
+  // return <canvas ref={ref} />;
 }
 
 export default App;
