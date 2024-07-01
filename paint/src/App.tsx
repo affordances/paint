@@ -29,7 +29,6 @@ function App() {
       </div>
     </div>
   );
-  // return <canvas ref={ref} />;
 }
 
 export default App;

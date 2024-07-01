@@ -1,6 +1,11 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
-import { fragmentShaderSource, vertexShaderSource } from "../constants";
+
+import {
+  fragmentShaderSource,
+  vertexShaderSource,
+  vertices,
+} from "../constants";
 
 export const ThreeJs = () => {
   const mountRef = useRef<HTMLDivElement>(null);
@@ -12,27 +17,28 @@ export const ThreeJs = () => {
 
     const scene = new THREE.Scene();
 
-    // const camera = new THREE.PerspectiveCamera(
-    //   75,
-    //   window.innerWidth / window.innerHeight,
-    //   0.1,
-    //   1000
-    // );
-    const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
-    camera.position.z = 1;
-
-    const renderer = new THREE.WebGLRenderer({ alpha: true });
-    renderer.setSize(ref.clientWidth, ref.clientHeight);
-    // camera.aspect = width / height;
+    const camera = new THREE.PerspectiveCamera(
+      75,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      1000
+    );
+    // camera.aspect = ref.clientWidth / ref.clientHeight;
     // camera.updateProjectionMatrix();
+    // camera.position.z = 2;
+
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    renderer.setSize(ref.clientWidth, ref.clientHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+
     ref.appendChild(renderer.domElement);
 
-    const geometry = new THREE.BufferGeometry();
-    const positions = new Float32Array([0, 0, 0, 0.5, 0.7, 0]);
+    const positions = new Float32Array(vertices.three);
 
+    const geometry = new THREE.BufferGeometry();
     geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
 
-    const material = new THREE.ShaderMaterial({
+    const material = new THREE.RawShaderMaterial({
       vertexShader: vertexShaderSource,
       fragmentShader: fragmentShaderSource,
     });
@@ -51,6 +57,7 @@ export const ThreeJs = () => {
       if (ref) {
         ref.removeChild(renderer.domElement);
       }
+      renderer.dispose();
     };
   }, []);
 
