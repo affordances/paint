@@ -10,8 +10,23 @@ export const settingsConfig = {
 };
 
 export const vertices = {
-  webGl: [0, 0, 0, 0.5, 0.7, 0],
-  threeAndR3f: [0.0, 0.5, 0.0, 0.0, 0.0, 0.0, 0.7, 0.0, 0.0],
+  webGl: [
+    // first vertex
+    0, 0.4,
+    // second vertex
+    -0.2, 0,
+    // third vertex
+    0.2, 0,
+  ],
+  // make all into floats, add 0.0 as third coordinate to each vertex
+  threeAndR3f: [
+    // first vertex
+    0.0, 0.4, 0.0,
+    // second vertex
+    -0.2, 0.0, 0.0,
+    // third vertex
+    0.2, 0.0, 0.0,
+  ],
 };
 
 export const vertexShaderSource = `

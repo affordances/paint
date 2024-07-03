@@ -23,9 +23,6 @@ export const ThreeJSExample = () => {
       0.1,
       1000
     );
-    // camera.aspect = ref.clientWidth / ref.clientHeight;
-    // camera.updateProjectionMatrix();
-    // camera.position.z = 2;
 
     const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
     renderer.setSize(ref.clientWidth, ref.clientHeight);
@@ -41,6 +38,8 @@ export const ThreeJSExample = () => {
     const material = new THREE.RawShaderMaterial({
       vertexShader: vertexShaderSource,
       fragmentShader: fragmentShaderSource,
+      // so it's not necessary to flip the first and second position coords
+      side: THREE.FrontSide,
     });
 
     const mesh = new THREE.Mesh(geometry, material);

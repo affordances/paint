@@ -8,20 +8,19 @@ import {
   vertices,
 } from "../constants";
 
-class ReactThreeFiber extends THREE.RawShaderMaterial {
+class CustomShader extends THREE.RawShaderMaterial {
   constructor() {
     super({
       vertexShader: vertexShaderSource,
       fragmentShader: fragmentShaderSource,
+      // so it's not necessary to flip the first and second position coords
+      side: THREE.FrontSide,
     });
   }
 }
 
-extend({ ReactThreeFiber });
-
-export { ReactThreeFiber };
-
-extend({ ReactThreeFiber });
+extend({ CustomShader });
+export { CustomShader };
 
 export const ReactThreeFiberExample = () => {
   const meshRef = useRef<THREE.Mesh>(null);
@@ -40,7 +39,7 @@ export const ReactThreeFiberExample = () => {
             itemSize={3}
           />
         </bufferGeometry>
-        <reactThreeFiber ref={materialRef} />
+        <customShader ref={materialRef} />
       </mesh>
     </Canvas>
   );

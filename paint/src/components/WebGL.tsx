@@ -6,7 +6,15 @@ import {
   vertices,
 } from "../constants";
 
-function createShader(gl: WebGLRenderingContext, type: number, source: string) {
+type ShaderSourceType =
+  | WebGLRenderingContextBase["VERTEX_SHADER"]
+  | WebGLRenderingContextBase["FRAGMENT_SHADER"];
+
+function createShader(
+  gl: WebGLRenderingContext,
+  type: ShaderSourceType,
+  source: string
+) {
   if (!gl) {
     return;
   }
