@@ -5,8 +5,8 @@ import { Canvas, extend } from "@react-three/fiber";
 import "./App.css";
 
 // import { Settings } from "./components/Settings";
-import { webGlMain } from "./components/webgl";
-import { ThreeJs } from "./components/Threejs";
+import { WebGLMain } from "./components/WebGL";
+import { ThreeJS } from "./components/ThreeJS";
 import { ReactThreeFiber } from "./components/ReactThreeFiber";
 import { vertices } from "./constants";
 
@@ -14,7 +14,7 @@ extend({ ReactThreeFiber });
 
 const ReactThreeFiberExample = () => {
   const meshRef = useRef<THREE.Mesh>(null);
-  const materialRef = useRef<THREE.ShaderMaterial>(null);
+  const materialRef = useRef<THREE.RawShaderMaterial>(null);
 
   const positions = new Float32Array(vertices.threeAndR3f);
 
@@ -38,7 +38,7 @@ function App() {
 
   useEffect(() => {
     if (ref.current) {
-      webGlMain(ref.current);
+      WebGLMain(ref.current);
     }
   });
 
@@ -50,7 +50,7 @@ function App() {
       </div>
       <div className="example">
         <div className="label">threejs</div>
-        <ThreeJs />
+        <ThreeJS />
       </div>
       <div className="example">
         <div className="label">react-three-fiber</div>

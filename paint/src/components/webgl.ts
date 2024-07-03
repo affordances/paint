@@ -52,7 +52,7 @@ function createProgram(
   gl.deleteProgram(program);
 }
 
-export function webGlMain(canvas: HTMLCanvasElement) {
+export const WebGLMain = (canvas: HTMLCanvasElement) => {
   const gl = canvas.getContext("webgl");
 
   if (!gl) {
@@ -143,4 +143,4 @@ export function webGlMain(canvas: HTMLCanvasElement) {
   //   const offset = 0;
   const count = 3;
   gl.drawArrays(primitiveType, offset, count);
-}
+};
