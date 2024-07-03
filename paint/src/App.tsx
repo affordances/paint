@@ -1,12 +1,37 @@
 import { useEffect, useRef } from "react";
-// import { Canvas } from "@react-three/fiber";
-// import * as THREE from "three";
+import * as THREE from "three";
+import { Canvas, extend } from "@react-three/fiber";
 
 import "./App.css";
 
 // import { Settings } from "./components/Settings";
 import { webGlMain } from "./components/webgl";
-import { ThreeJs } from "./components/threejs";
+import { ThreeJs } from "./components/Threejs";
+import { ReactThreeFiber } from "./components/ReactThreeFiber";
+import { vertices } from "./constants";
+
+extend({ ReactThreeFiber });
+
+const ShaderPlane = () => {
+  const meshRef = useRef<THREE.Mesh>(null);
+  const materialRef = useRef<THREE.ShaderMaterial>(null);
+
+  const positions = new Float32Array(vertices.threeAndR3f);
+
+  return (
+    <mesh ref={meshRef}>
+      <bufferGeometry>
+        <bufferAttribute
+          attach="attributes-position"
+          array={positions}
+          count={positions.length / 3}
+          itemSize={3}
+        />
+      </bufferGeometry>
+      <reactThreeFiber ref={materialRef} />
+    </mesh>
+  );
+};
 
 function App() {
   const ref = useRef(null);
@@ -26,6 +51,12 @@ function App() {
       <div className="example">
         <div className="label">threejs</div>
         <ThreeJs />
+      </div>
+      <div className="example">
+        <div className="label">react-three-fiber</div>
+        <Canvas>
+          <ShaderPlane />
+        </Canvas>
       </div>
     </div>
   );

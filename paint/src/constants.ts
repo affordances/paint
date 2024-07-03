@@ -14,7 +14,7 @@ export const settingsConfig = {
 
 export const vertices = {
   webGl: [0, 0, 0, 0.5, 0.7, 0],
-  three: [0.0, 0.5, 0.0, 0.0, 0.0, 0.0, 0.7, 0.0, 0.0],
+  threeAndR3f: [0.0, 0.5, 0.0, 0.0, 0.0, 0.0, 0.7, 0.0, 0.0],
 };
 
 export const vertexShaderSource = `

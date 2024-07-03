@@ -33,7 +33,7 @@ export const ThreeJs = () => {
 
     ref.appendChild(renderer.domElement);
 
-    const positions = new Float32Array(vertices.three);
+    const positions = new Float32Array(vertices.threeAndR3f);
 
     const geometry = new THREE.BufferGeometry();
     geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
