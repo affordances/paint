@@ -7,7 +7,7 @@ import {
   vertices,
 } from "../constants";
 
-export const ThreeJS = () => {
+export const ThreeJSExample = () => {
   const mountRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

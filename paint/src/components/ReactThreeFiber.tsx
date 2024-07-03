@@ -1,6 +1,12 @@
+import { useRef } from "react";
 import * as THREE from "three";
-import { extend } from "@react-three/fiber";
-import { fragmentShaderSource, vertexShaderSource } from "../constants";
+import { Canvas, extend } from "@react-three/fiber";
+
+import {
+  fragmentShaderSource,
+  vertexShaderSource,
+  vertices,
+} from "../constants";
 
 class ReactThreeFiber extends THREE.RawShaderMaterial {
   constructor() {
@@ -14,3 +20,28 @@ class ReactThreeFiber extends THREE.RawShaderMaterial {
 extend({ ReactThreeFiber });
 
 export { ReactThreeFiber };
+
+extend({ ReactThreeFiber });
+
+export const ReactThreeFiberExample = () => {
+  const meshRef = useRef<THREE.Mesh>(null);
+  const materialRef = useRef<THREE.RawShaderMaterial>(null);
+
+  const positions = new Float32Array(vertices.threeAndR3f);
+
+  return (
+    <Canvas>
+      <mesh ref={meshRef}>
+        <bufferGeometry>
+          <bufferAttribute
+            attach="attributes-position"
+            array={positions}
+            count={positions.length / 3}
+            itemSize={3}
+          />
+        </bufferGeometry>
+        <reactThreeFiber ref={materialRef} />
+      </mesh>
+    </Canvas>
+  );
+};

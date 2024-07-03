@@ -1,3 +1,5 @@
+import { useRef, useEffect } from "react";
+
 import {
   vertexShaderSource,
   fragmentShaderSource,
@@ -143,4 +145,16 @@ export const WebGLMain = (canvas: HTMLCanvasElement) => {
   //   const offset = 0;
   const count = 3;
   gl.drawArrays(primitiveType, offset, count);
+};
+
+export const WebGLExample = () => {
+  const ref = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    if (ref.current) {
+      WebGLMain(ref.current);
+    }
+  });
+
+  return <canvas ref={ref}></canvas>;
 };
