@@ -4,11 +4,22 @@ import {
   vertices,
 } from "../constants";
 
-function createShader(gl, type, source) {
+function createShader(gl: WebGLRenderingContext, type: number, source: string) {
+  if (!gl) {
+    return;
+  }
+
   const shader = gl.createShader(type);
+
+  if (!shader) {
+    return;
+  }
+
   gl.shaderSource(shader, source);
   gl.compileShader(shader);
+
   const success = gl.getShaderParameter(shader, gl.COMPILE_STATUS);
+
   if (success) {
     return shader;
   }
@@ -17,12 +28,22 @@ function createShader(gl, type, source) {
   gl.deleteShader(shader);
 }
 
-function createProgram(gl, vertexShader, fragmentShader) {
+function createProgram(
+  gl: WebGLRenderingContext,
+  vertexShader: WebGLShader,
+  fragmentShader: WebGLShader
+) {
   const program = gl.createProgram();
+  if (!program) {
+    return;
+  }
+
   gl.attachShader(program, vertexShader);
   gl.attachShader(program, fragmentShader);
   gl.linkProgram(program);
+
   const success = gl.getProgramParameter(program, gl.LINK_STATUS);
+
   if (success) {
     return program;
   }
@@ -31,8 +52,9 @@ function createProgram(gl, vertexShader, fragmentShader) {
   gl.deleteProgram(program);
 }
 
-export function webGlMain(canvas) {
+export function webGlMain(canvas: HTMLCanvasElement) {
   const gl = canvas.getContext("webgl");
+
   if (!gl) {
     return;
   }
@@ -53,8 +75,16 @@ export function webGlMain(canvas) {
     fragmentShaderSource
   );
 
+  if (!vertexShader || !fragmentShader) {
+    return;
+  }
+
   // Link the two shaders into a program
   const program = createProgram(gl, vertexShader, fragmentShader);
+
+  if (!program) {
+    return;
+  }
 
   // look up where the vertex data needs to go.
   const positionAttributeLocation = gl.getAttribLocation(program, "position");

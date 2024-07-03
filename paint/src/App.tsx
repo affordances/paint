@@ -12,7 +12,7 @@ import { vertices } from "./constants";
 
 extend({ ReactThreeFiber });
 
-const ShaderPlane = () => {
+const ReactThreeFiberExample = () => {
   const meshRef = useRef<THREE.Mesh>(null);
   const materialRef = useRef<THREE.ShaderMaterial>(null);
 
@@ -34,10 +34,10 @@ const ShaderPlane = () => {
 };
 
 function App() {
-  const ref = useRef(null);
+  const ref = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    if (ref) {
+    if (ref.current) {
       webGlMain(ref.current);
     }
   });
@@ -55,7 +55,7 @@ function App() {
       <div className="example">
         <div className="label">react-three-fiber</div>
         <Canvas>
-          <ShaderPlane />
+          <ReactThreeFiberExample />
         </Canvas>
       </div>
     </div>
