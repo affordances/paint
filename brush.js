@@ -142,9 +142,11 @@ var Brush = (function () {
     );
 
     var randoms = [];
+
     for (var i = 0; i < maxBristleCount * VERTICES_PER_BRISTLE * 4; ++i) {
       randoms.push(Math.random());
     }
+
     this.randomsTexture = wgl.buildTexture(
       wgl.RGBA,
       wgl.FLOAT,
@@ -159,8 +161,8 @@ var Brush = (function () {
 
     var splatCoordinates = [];
     var splatIndices = [];
-
     var splatIndex = 0;
+
     for (var bristle = 0; bristle < maxBristleCount; ++bristle) {
       for (var vertex = 0; vertex < VERTICES_PER_BRISTLE - 1; ++vertex) {
         //we create a quad for each bristle vertex
@@ -209,6 +211,7 @@ var Brush = (function () {
     }
 
     this.splatCoordinatesBuffer = wgl.createBuffer();
+
     wgl.bufferData(
       this.splatCoordinatesBuffer,
       wgl.ARRAY_BUFFER,
@@ -217,6 +220,7 @@ var Brush = (function () {
     );
 
     this.splatIndexBuffer = wgl.createBuffer();
+
     wgl.bufferData(
       this.splatIndexBuffer,
       wgl.ELEMENT_ARRAY_BUFFER,
@@ -242,6 +246,7 @@ var Brush = (function () {
     }
 
     this.brushIndexBuffer = wgl.createBuffer();
+
     wgl.bufferData(
       this.brushIndexBuffer,
       wgl.ELEMENT_ARRAY_BUFFER,
@@ -252,6 +257,7 @@ var Brush = (function () {
     this.simulationFramebuffer = wgl.createFramebuffer();
 
     this.quadVertexBuffer = wgl.createBuffer();
+
     wgl.bufferData(
       this.quadVertexBuffer,
       wgl.ARRAY_BUFFER,
